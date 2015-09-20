@@ -1,7 +1,7 @@
 module SessionsHelper
 	def login(user)
 		session[:user_id] = user.id
-		current_user = user
+		@current_user = user
 	end
 
 	def current_user
@@ -9,9 +9,7 @@ module SessionsHelper
 	end
 
 	def logged_in?
-		if current_user == nil
-			redirect_to "/sign_in"
-		end
+		@current_user.nil?
 	end
 
 	def logout

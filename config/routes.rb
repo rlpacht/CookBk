@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  resources :user_favorites
   resources :users
   resources :recipes
-  get  "/search", to: "recipes#search"
   root 'application#index'
+  post "/sessions", to: "sessions#create"
 end
