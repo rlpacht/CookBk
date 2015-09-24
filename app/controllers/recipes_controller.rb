@@ -18,9 +18,12 @@ class RecipesController < ApplicationController
       end
     end
 
-    p "search_results #{search_results[0].class}"
+    # render json: {recipes: search_results}
 
-    render json: {recipes: search_results}
+    respond_to do |f|
+      f.json { render json: {recipes: search_results}}
+      f.html
+    end 
       
     # end
     # Loop through results
@@ -32,6 +35,12 @@ class RecipesController < ApplicationController
     # Ember expects JSON response in the form {recipes: [{}, {}, {}]}
     # render json: {}
 	end
+
+  def search
+    # this should take care of the search, not index,
+    # because otherwise it'll perform a search each time 
+    # a user goes to /recipes
+  end
 
   private 
 
@@ -63,29 +72,17 @@ class RecipesController < ApplicationController
     result = self.class.get("/recipe/#{yummly_id}", query_params)
 
     recipe_info = {
-    yummly_id: result["id"],
-    recipe_name: result["name"],
-    ingredients: JSON.generate(result["ingredientLines"]),
-    number_of_servings: result["numberOfServings"],
-    time: result["totalTimeInSeconds"],
-    source_url: result["source"]["sourceRecipeUrl"],
-    img_url: result["images"][0]["imageUrlsBySize"]["90"],
-    large_img_url: result["images"][0]["imageUrlsBySize"]["360"],
-    medium_img_url: result["images"][0]["hostedMediumUrl"]
+      yummly_id: result["id"],
+      recipe_name: result["name"],
+      ingredients: JSON.generate(result["ingredientLines"]),
+      number_of_servings: result["numberOfServings"],
+      time: result["totalTimeInSeconds"],
+      source_url: result["source"]["sourceRecipeUrl"],
+      img_url: result["images"][0]["imageUrlsBySize"]["90"],
+      large_img_url: result["images"][0]["imageUrlsBySize"]["360"],
+      medium_img_url: result["images"][0]["hostedMediumUrl"]
     }
     new_recipe = Recipe.create(recipe_info)
-    p new_recipe
-    
-    
-    # puts "indiv result #{result["id"]}"
-    # puts result["name"]
-    # puts "ingredients #{JSON.generate(result["ingredientLines"])}"
-    # puts "images #{result["images"][0]["imageUrlsBySize"]["360"]}"
-    # puts result["numberOfServings"]
-    # puts result["totalTimeInSeconds"]
-    # puts result["source"]["sourceRecipeUrl"]
-    # add result to db
-
-    # JSON.generate to turn Ruby objects into JSON strings
+    new_recipe
   end
 end
