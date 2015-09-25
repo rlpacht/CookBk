@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :user_favorites
+  resources :user_favorites, :only => [:create, :destroy, :index]
   resources :users
-  resources :recipes
+  resources :recipes, :only => [:index, :show]
   root 'application#index'
-  post "/sessions", to: "sessions#create"
+  post "sessions", to: "sessions#create"
 end

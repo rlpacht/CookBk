@@ -11,29 +11,16 @@ class RecipesController < ApplicationController
     results = search_yummly(food_searched)
     search_results = []
     results["matches"].each do |result|
-      if Recipe.find_by({yummly_id: result["id"]}).nil?
-        search_results.push(find_and_insert_recipe(result["id"]))
+      yummly_id = result["id"]
+      if Recipe.exists?({yummlyId: yummly_id})
+        search_results.push(Recipe.find_by({yummlyId: yummly_id}))
       else
-        search_results.push(Recipe.find_by({yummly_id: result["id"]}))
+        search_results.push(find_and_insert_recipe(yummly_id))
       end
     end
 
-    # render json: {recipes: search_results}
-
-    respond_to do |f|
-      f.json { render json: {recipes: search_results}}
-      f.html
-    end 
+    render json: {recipes: search_results}
       
-    # end
-    # Loop through results
-    # For each result, 
-      # If the same yummly id exists in your database, move on
-      # Otherwise, fetch it from yummly's API and insert it in your db (use find_and_insert_recipe function below)
-      # Also store an array of just the yummly ids for the search results
-    # Query recipes from your db which match ids with the search results (look into SQL "IN" condition)
-    # Ember expects JSON response in the form {recipes: [{}, {}, {}]}
-    # render json: {}
 	end
 
   def search
@@ -72,17 +59,16 @@ class RecipesController < ApplicationController
     result = self.class.get("/recipe/#{yummly_id}", query_params)
 
     recipe_info = {
-      yummly_id: result["id"],
-      recipe_name: result["name"],
+      yummlyId: result["id"],
+      name: result["name"],
       ingredients: JSON.generate(result["ingredientLines"]),
-      number_of_servings: result["numberOfServings"],
+      numberOfServings: result["numberOfServings"],
       time: result["totalTimeInSeconds"],
-      source_url: result["source"]["sourceRecipeUrl"],
-      img_url: result["images"][0]["imageUrlsBySize"]["90"],
-      large_img_url: result["images"][0]["imageUrlsBySize"]["360"],
-      medium_img_url: result["images"][0]["hostedMediumUrl"]
+      sourceUrl: result["source"]["sourceRecipeUrl"],
+      smallImgUrl: result["images"][0]["imageUrlsBySize"]["90"],
+      largeImgUrl: result["images"][0]["imageUrlsBySize"]["360"],
+      mediumImgUrl: result["images"][0]["hostedMediumUrl"]
     }
-    new_recipe = Recipe.create(recipe_info)
-    new_recipe
+    Recipe.create(recipe_info)
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150924190559) do
+ActiveRecord::Schema.define(version: 20150924224533) do
 
   create_table "favorites", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -19,17 +19,17 @@ ActiveRecord::Schema.define(version: 20150924190559) do
   end
 
   create_table "recipes", force: :cascade do |t|
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "yummly_id"
-    t.string   "recipe_name"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "yummlyId"
+    t.string   "name"
     t.integer  "time"
-    t.string   "source_url"
-    t.string   "img_url"
-    t.integer  "number_of_servings"
+    t.string   "sourceUrl"
+    t.string   "smallImgUrl"
+    t.integer  "numberOfServings"
     t.string   "ingredients"
-    t.string   "large_img_url"
-    t.string   "medium_img_url"
+    t.string   "largeImgUrl"
+    t.string   "mediumImgUrl"
   end
 
   create_table "user_favorites", force: :cascade do |t|
