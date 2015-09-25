@@ -7,6 +7,7 @@ class RecipesController < ApplicationController
   base_uri("http://api.yummly.com/v1/api")
 
 	def index
+    binding.pry
     food_searched = params[:query]
     results = search_yummly(food_searched)
     search_results = []
@@ -27,6 +28,11 @@ class RecipesController < ApplicationController
     # this should take care of the search, not index,
     # because otherwise it'll perform a search each time 
     # a user goes to /recipes
+  end
+
+  def show
+    recipe = Recipe.find(params[:id])
+    render json: {recipe: recipe}
   end
 
   private 

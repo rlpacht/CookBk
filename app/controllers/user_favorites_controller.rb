@@ -12,7 +12,6 @@ class UserFavoritesController < ApplicationController
   end
 
   def index
-    p "in index"
     user_favorites = UserFavorite.where({user_id: current_user.id})
     render json: {user_favorites: user_favorites}
   end 
