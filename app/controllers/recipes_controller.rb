@@ -7,9 +7,11 @@ class RecipesController < ApplicationController
   base_uri("http://api.yummly.com/v1/api")
 
 	def index
-    binding.pry
-    food_searched = params[:query]
-    results = search_yummly(food_searched)
+    
+    food_searched = params[:query][:search]
+    page_count = params[:query][:currentPage]
+  
+    results = search_yummly(food_searched, page_count)
     search_results = []
     results["matches"].each do |result|
       yummly_id = result["id"]
@@ -37,14 +39,18 @@ class RecipesController < ApplicationController
 
   private 
 
-  def search_yummly(search_query)
+  def search_yummly(search_query, page_count)
+    recipe_start = ((page_count.to_i) - 1) * 10
     id = ENV["yummly_app_id"]
     key = ENV["yummly_app_key"]
     query_params = {
       query: {
         _app_id: id, 
         _app_key: key, 
-        q: search_query
+        q: search_query,
+        maxResult: 10,
+        start: recipe_start
+
         # TODO: deal with page number 
       }
     }
