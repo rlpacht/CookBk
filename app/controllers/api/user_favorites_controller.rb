@@ -1,4 +1,4 @@
-class UserFavoritesController < ApplicationController
+class Api::UserFavoritesController < ApplicationController
   def create
     recipe_id = params[:user_favorite][:recipe_id]
     user_id = current_user.id

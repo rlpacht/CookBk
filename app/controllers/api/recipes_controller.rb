@@ -1,7 +1,7 @@
 require 'json'
 require 'net/http'
 # require 'httparty'
-class RecipesController < ApplicationController
+class Api::RecipesController < ApplicationController
 
   include HTTParty
   base_uri("http://api.yummly.com/v1/api")

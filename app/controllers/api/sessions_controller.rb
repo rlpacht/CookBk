@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController
+class Api::SessionsController < ApplicationController
 	def create
 		binding.pry
 		user_params = params.require(:user).permit(:email, :password)
