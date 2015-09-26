@@ -13,6 +13,7 @@ class RecipesController < ApplicationController
   
     results = search_yummly(food_searched, page_count)
     search_results = []
+    total_matches = results["totalMatchCount"]
     results["matches"].each do |result|
       yummly_id = result["id"]
       if Recipe.exists?({yummlyId: yummly_id})
@@ -21,8 +22,9 @@ class RecipesController < ApplicationController
         search_results.push(find_and_insert_recipe(yummly_id))
       end
     end
+    # search_results.push(total_matches)
 
-    render json: {recipes: search_results}
+    render json: {recipes: search_results, total_matches: total_matches}
       
 	end
 
