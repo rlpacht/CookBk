@@ -28,12 +28,6 @@ class Api::RecipesController < ApplicationController
       
 	end
 
-  def search
-    # this should take care of the search, not index,
-    # because otherwise it'll perform a search each time 
-    # a user goes to /recipes
-  end
-
   def show
     recipe = Recipe.find(params[:id])
     render json: {recipe: recipe}
@@ -50,7 +44,7 @@ class Api::RecipesController < ApplicationController
         _app_id: id, 
         _app_key: key, 
         q: search_query,
-        maxResult: 10,
+        maxResult: 30,
         start: recipe_start
 
         # TODO: deal with page number 
