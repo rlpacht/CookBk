@@ -1,12 +1,15 @@
 class Api::SessionsController < ApplicationController
+
 	def create
-		binding.pry
 		user_params = params.require(:user).permit(:email, :password)
 		@user = User.confirm(user_params)
 		if @user
 			login(@user)
-		end
-		render json: {}
+			render json: {}
+		else 
+			head 403
+		end 
+		
 	end
 
 	def destroy

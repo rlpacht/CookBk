@@ -7,25 +7,33 @@ class Api::RecipesController < ApplicationController
   base_uri("http://api.yummly.com/v1/api")
 
 	def index
-    
+    results_per_page = 10
     food_searched = params[:query][:search]
     page_count = params[:query][:currentPage]
   
-    results = search_yummly(food_searched, page_count)
+    results = search_yummly(food_searched, page_count, results_per_page)
+
     search_results = []
     total_matches = results["totalMatchCount"]
+
     results["matches"].each do |result|
       yummly_id = result["id"]
-      if Recipe.exists?({yummlyId: yummly_id})
-        search_results.push(Recipe.find_by({yummlyId: yummly_id}))
-      else
+      recipe = Recipe.find_by({yummlyId: yummly_id})
+      if recipe.nil?
         search_results.push(find_and_insert_recipe(yummly_id))
+      else
+        search_results.push(recipe)
       end
     end
-    # search_results.push(total_matches)
 
-    render json: {recipes: search_results, total_matches: total_matches}
-      
+    render json: {
+      recipes: search_results, 
+      meta: {
+        total_matches: total_matches,
+        results_per_page: results_per_page
+      }
+    }
+       
 	end
 
   def show
@@ -35,8 +43,8 @@ class Api::RecipesController < ApplicationController
 
   private 
 
-  def search_yummly(search_query, page_count)
-    recipe_start = ((page_count.to_i) - 1) * 10
+  def search_yummly(search_query, page_count, results_per_page = 10)
+    recipe_start = ((page_count.to_i) - 1) * results_per_page
     id = ENV["yummly_app_id"]
     key = ENV["yummly_app_key"]
     query_params = {
@@ -44,7 +52,8 @@ class Api::RecipesController < ApplicationController
         _app_id: id, 
         _app_key: key, 
         q: search_query,
-        maxResult: 30,
+        requirePictures: true,
+        maxResult: results_per_page,
         start: recipe_start
 
         # TODO: deal with page number 
@@ -63,8 +72,9 @@ class Api::RecipesController < ApplicationController
         _app_key: key
       }
     }
-
+    start_time = Time.now
     result = self.class.get("/recipe/#{yummly_id}", query_params)
+    insert_time = Time.now
 
     recipe_info = {
       yummlyId: result["id"],
@@ -78,5 +88,6 @@ class Api::RecipesController < ApplicationController
       mediumImgUrl: result["images"][0]["hostedMediumUrl"]
     }
     Recipe.create(recipe_info)
+
   end
 end

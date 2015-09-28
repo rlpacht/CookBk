@@ -4,10 +4,10 @@ class Api::UsersController < ApplicationController
   end
 
   def create
-    user_params = params.require(:user).permit(:name, :email, :password)
+    user_params = params.require(:user).permit(:email, :password)
     @user = User.create(user_params)
     login(@user)
-    redirect_to "/users/#{@user.id}"
+    render json: {}
   end
 
   def show

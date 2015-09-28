@@ -5,8 +5,8 @@ module SessionsHelper
 	end
 
 	def current_user
-		# TODO uncomment this when user loggin and sign up is set up (issues with CSRF)
 		# @current_user ||= User.find_by_id(session[:user_id])
+		# TODO uncomment this when user loggin and sign up is set up (issues with CSRF)
 		User.all.first
 	end
 
