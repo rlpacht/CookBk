@@ -33,7 +33,6 @@ class Api::RecipesController < ApplicationController
         results_per_page: results_per_page
       }
     }
-       
 	end
 
   def show
@@ -55,15 +54,12 @@ class Api::RecipesController < ApplicationController
         requirePictures: true,
         maxResult: results_per_page,
         start: recipe_start
-
-        # TODO: deal with page number 
       }
     }
     self.class.get("/recipes", query_params)
   end
 
   def find_and_insert_recipe(yummly_id)
-
     id = ENV["yummly_app_id"]
     key = ENV["yummly_app_key"]
     query_params = {
@@ -72,9 +68,7 @@ class Api::RecipesController < ApplicationController
         _app_key: key
       }
     }
-    start_time = Time.now
     result = self.class.get("/recipe/#{yummly_id}", query_params)
-    insert_time = Time.now
 
     recipe_info = {
       yummlyId: result["id"],

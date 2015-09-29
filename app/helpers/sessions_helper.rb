@@ -1,14 +1,11 @@
 module SessionsHelper
 	def login(user)
-		# binding.pry
 		session[:user_id] = user.id
 		@current_user = user
 	end
 
 	def current_user
-		# TODO uncomment this when user loggin and sign up is set up (issues with CSRF)
-		# @current_user ||= User.find_by_id(session[:user_id])
-		User.all.first
+		@current_user ||= User.find_by_id(session[:user_id])
 	end
 
 	def logged_in?
