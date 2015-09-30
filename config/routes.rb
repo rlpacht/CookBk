@@ -18,7 +18,5 @@ Rails.application.routes.draw do
 
   delete "sessions", to: "sessions#destroy"
 
-  # get "sessions/log_user_out", to: "sessions#log_user_out"
-
   get '*path' => 'application#index'
 end

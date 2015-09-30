@@ -21,13 +21,6 @@ class SessionsController < ApplicationController
 
 	end
 
-	def log_user_out
-		if logged_in?
-			destroy
-			redirect_to "/sessions/new"
-		end
-	end
-
 	def destroy
 
 		logout
