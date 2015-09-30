@@ -6,16 +6,16 @@ class Api::RecipesController < ApplicationController
   include HTTParty
   base_uri("http://api.yummly.com/v1/api")
 
-	def index
-    results_per_page = 10
+  def index
     if params[:query].nil?
       food_searched = ""
       page_count = "1"
     else
-
       food_searched = params[:query][:search]
-      page_count = params[:query][:currentPage] || "1"
+      page_count = params[:query][:currentPage]
     end
+    results_per_page = 10
+
     results = search_yummly(food_searched, page_count, results_per_page)
 
     search_results = []
@@ -38,7 +38,7 @@ class Api::RecipesController < ApplicationController
         results_per_page: results_per_page
       }
     }
-	end
+  end
 
   def show
     recipe = Recipe.find(params[:id])

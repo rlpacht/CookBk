@@ -7,7 +7,7 @@ class Api::UserFavoritesController < ApplicationController
   end
 
   def destroy
-    UserFavorite.delete(params[:id]) 
+    UserFavorite.delete(params[:id])
     render json: {}
   end
 
@@ -17,5 +17,5 @@ class Api::UserFavoritesController < ApplicationController
       user_favorite.recipe
     end
     render json: {user_favorites: user_favorites, recipes: recipes}
-  end 
+  end
 end
