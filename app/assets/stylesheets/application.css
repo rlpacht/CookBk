@@ -22,66 +22,61 @@
   color: white;
 }
 
-.header {
-  /*padding: 45px 15px 15px;*/
-  padding-top: .5%;
-  margin: 0px;
-  background: rgb(20, 72, 116);
+
+.login-form, .signup-form {
+  max-width: 300px;
+  max-width: 55%;
 }
 
-.nav-btn-container a {
+.login-container, .signup-container {
+  position: relative;
+  top: 30%;
+  left: 67%;
+  padding-top: 10%;
+  max-width: 30%;
+
+}
+
+.why-login{
+  font-size: 30px;
+  margin-top: 3%;
   color: white;
 }
 
-.nav-btn-container li:hover a:hover{
-  /*background-color: grey;*/
-  background-color: rgba(32, 145, 185, 0.9);
+.signup-link{
+  position: relative;
+  font-size: 20px;
+  margin-top: 3%;
+  color: white;
 }
 
- .login-form, .signup-form {
-   max-width: 300px;
-   max-width: 55%;
- }
+.signup-button {
+  background: rgb(190, 95, 124);
+  color: black;
+}
 
- .login-container, .signup-container {
-   position: relative;
-   top: 30%;
-   left: 67%;
-   padding-top: 10%;
-   max-width: 30%;
+.page-message {
+  font-size: 40px;
+  text-align: center;
+  padding: 10px;
+}
 
- }
+.password-notice {
+  text-align: center;
+  padding: 25px;
+  color: red;
+}
 
- .why-login{
-   font-size: 30px;
-   margin-top: 3%;
-   color: black;
- }
+.logout {
+  position: relative;
+  float: right;
+}
+.signup-error {
+  color: white;
+  /*color: rgba(155, 0, 105, 0.9);*/
+}
 
- .signup-link {
-   position: relative;
-   font-size: 20px;
-   margin-top: 3%;
-   color: black;
- }
-
- .login-button {
-   background: rgb(166, 111, 166);
-   color: black;
- }
-
- .signup-button {
-   background: rgb(190, 95, 124);
-   color: black;
- }
-
- .page-message {
-   font-size: 40px;
-   text-align: center;
-   padding: 10px;
- }
-
- .login-background, .signup-background {
+.login-background, .signup-background {
   max-width: 100%;
   background-image: url('cook_bk_background_copy.jpg');
   background-repeat: no-repeat;

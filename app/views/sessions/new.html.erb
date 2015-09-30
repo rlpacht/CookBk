@@ -1,7 +1,9 @@
 <div class="login-background">
   <div class="login-container">
     <div class="why-login">Log in<br>
-      <%=link_to "No account? Click here to join today!", :controller => :users, :action => :new %>
+      <div class="signup-link">
+        <%=link_to "No account? Click here to join today!", :controller => :users, :action => :new, :class => "signup-link" %>
+      </div>
     </div> <br>
 
     <div class="login-form form-horizontal">
@@ -15,7 +17,7 @@
         </div>
         <%= f.submit "Log in", class: "btn btn-primary" %>
       <% end %>
-
+      <br>
       <%= form_for @user, url: "/sessions", method: "post" do |f| %>
         <div style="display: none">
           <%= f.email_field :email, value: "demo@email.com" %>
