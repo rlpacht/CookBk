@@ -1,9 +1,12 @@
 class UsersController < ApplicationController
 
   def new
-    @user = User.new
-
-    render :new
+    if logged_in?
+      redirect_to "/recipes"
+    else
+      @user = User.new
+      render :new
+    end
   end
 
   def create
@@ -11,7 +14,6 @@ class UsersController < ApplicationController
     @user = User.create(user_params)
     login(@user)
     redirect_to "/recipes"
-    # render json: {user: @user}
   end
 
   def show

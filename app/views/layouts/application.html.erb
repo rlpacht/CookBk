@@ -9,25 +9,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <% if current_user.nil? %>
-    <div class="header page-header">
-      <ul class="nav-btn-container nav navbar nav-pills">
-        <li class="btn">
-          <h4 class="app-name">
-            Cook.bk
-          </h4>
-        </li>
 
-        <li class="btn">
-          <%= link_to "Sign up", "/users/new" %>
-        </li>
-        <li class="btn">
-          <%= link_to "Log in", "/sessions/new" %>
-        </li>
-      </ul>
-
-    </div>
-  <% end %>
 <%= yield %>
 
 </body>

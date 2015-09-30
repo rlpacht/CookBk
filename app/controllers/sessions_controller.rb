@@ -1,7 +1,12 @@
 class SessionsController < ApplicationController
 
 	def new
-		@user = User.new()
+		if logged_in?
+			redirect_to "/recipes"
+		else
+			@user = User.new()
+			render :new
+		end
 	end
 
 	def create
@@ -10,7 +15,6 @@ class SessionsController < ApplicationController
 		if @user
 			login(@user)
 			redirect_to "/recipes"
-			# render json: {}
 		else
 			head 403
 		end
@@ -19,6 +23,7 @@ class SessionsController < ApplicationController
 
 	def destroy
 		logout
+		redirect_to action: "new"
 	end
 
 end

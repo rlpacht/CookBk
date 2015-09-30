@@ -3,15 +3,12 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :user_favorites, :only => [:create, :destroy, :index]
-
     resources :recipes, :only => [:index, :show]
-
   end
+
   root 'application#index'
 
   get "/users/new", to: "users#new"#, as: "signup"
-
-  get "/users/show", to: 'users#show'
 
   post "users", to: "users#create"
 

@@ -3,7 +3,12 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   include SessionsHelper
+
   def index
-    render :index
+    if logged_in?
+      render :index
+    else
+      redirect_to "/sessions/new"
+    end
   end
 end
