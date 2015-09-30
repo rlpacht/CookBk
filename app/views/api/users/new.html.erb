@@ -1,0 +1,26 @@
+<div class="signup-background">
+  <div class="signup-container">
+    <div class="why-login">Sign Up<br>
+      <div class="signup-link">
+        <%=link_to("Already have an account? Log in!", "api/sessions/new") %>
+      </div>
+    </div> <br>
+
+    <div class="signup-form form-horizontal">
+      <%=form_for @user, url: api_users_path, html: { method: :post }  do |f| %>
+        <div class="form-group">
+          <%= f.email_field :email, class: "form-control", placeholder: "Email" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.password_field :password, class: "form-control", placeholder: "Password" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.password_field :password, class: "form-control", placeholder: "Confirm Password" %>
+        </div>
+        <%= f.submit "Sign Up", class: "btn btn-primary"%>
+      <% end %>
+    </div>
+  </div>
+</div>

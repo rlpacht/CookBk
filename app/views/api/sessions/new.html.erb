@@ -1,0 +1,28 @@
+<div class="login-background">
+  <div class="login-container">
+    <div class="why-login">Log in<br>
+      <%=link_to("No account? Click here to join today!", "api/users/new ") %>
+    </div> <br>
+
+    <div class="login-form form-horizontal">
+      <%= form_for @user, url: api_users_path, html: { method: :post, class: "form-group"} do |f| %>
+        <div class="form-group" >
+            <%= f.email_field :email, placeholder: "Email", class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.password_field :password, placeholder: "Password", class: "form-control" %>
+        </div>
+        <%= f.submit "Log in", class: "btn btn-primary" %>
+      <% end %>
+
+      <%= form_for api_sessions_path(@user), url: "/sessions", method: "post" do |f| %>
+        <div style="display: none">
+          <%= f.email_field :email, value: "demo@email.com" %>
+          <%= f.password_field :password, value: "demodemo"%>
+        </div>
+        <%= f.submit "Demo log in", class: "btn btn-success" %>
+      <% end %>
+    </div>
+  </div>
+</div>

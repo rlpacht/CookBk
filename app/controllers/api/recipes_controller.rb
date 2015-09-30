@@ -8,9 +8,14 @@ class Api::RecipesController < ApplicationController
 
 	def index
     results_per_page = 10
-    food_searched = params[:query][:search]
-    page_count = params[:query][:currentPage]
-  
+    if params[:query].nil?
+      food_searched = ""
+      page_count = "1"
+    else
+
+      food_searched = params[:query][:search]
+      page_count = params[:query][:currentPage] || "1"
+    end
     results = search_yummly(food_searched, page_count, results_per_page)
 
     search_results = []
@@ -27,7 +32,7 @@ class Api::RecipesController < ApplicationController
     end
 
     render json: {
-      recipes: search_results, 
+      recipes: search_results,
       meta: {
         total_matches: total_matches,
         results_per_page: results_per_page
@@ -40,7 +45,7 @@ class Api::RecipesController < ApplicationController
     render json: {recipe: recipe}
   end
 
-  private 
+  private
 
   def search_yummly(search_query, page_count, results_per_page = 10)
     recipe_start = ((page_count.to_i) - 1) * results_per_page
@@ -48,8 +53,8 @@ class Api::RecipesController < ApplicationController
     key = ENV["yummly_app_key"]
     query_params = {
       query: {
-        _app_id: id, 
-        _app_key: key, 
+        _app_id: id,
+        _app_key: key,
         q: search_query,
         requirePictures: true,
         maxResult: results_per_page,
@@ -64,7 +69,7 @@ class Api::RecipesController < ApplicationController
     key = ENV["yummly_app_key"]
     query_params = {
       query: {
-        _app_id: id, 
+        _app_id: id,
         _app_key: key
       }
     }
