@@ -10,7 +10,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+  <% if logged_in? %>
+    <div class="signout-container nav nav-pills">
+      <%= link_to "Sign Out", "/sessions", :method => :delete, :class => "signout-button btn btn-primary", :role => "presentation" %>
+    </div>
+  <% end %>
 <%= yield %>
 
 </body>

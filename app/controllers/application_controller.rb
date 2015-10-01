@@ -11,16 +11,4 @@ class ApplicationController < ActionController::Base
       redirect_to "/sessions/new"
     end
   end
-
-  # def show
-  #   if params[:route] == "recipes"
-  #     redirect_to "/recipes"
-  #   elsif params[:route] == "favorites"
-  #     redirect_to "/favorites"
-  #   elsif params[:route] == "destroy"
-  #     redirect_to "/sessions/destroy"
-  #   else
-  #     binding.pry
-  #   end
-  # end
 end

@@ -8,8 +8,6 @@ Rails.application.routes.draw do
 
   root 'application#index'
 
-  post "application", to: "application#show"
-
   get "/users/new", to: "users#new"#, as: "signup"
 
   post "users", to: "users#create"
