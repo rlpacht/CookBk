@@ -2,5 +2,6 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/rlpacht/Cook_book.git"
-  }
+  },
+  "license": "ISC"
 }
