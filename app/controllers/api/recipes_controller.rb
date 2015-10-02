@@ -23,7 +23,7 @@ class Api::RecipesController < ApplicationController
 
     results["matches"].each do |result|
       yummly_id = result["id"]
-      recipe = Recipe.find_by({yummlyId: yummly_id})
+      recipe = Recipe.find_by({yummly_id: yummly_id})
       if recipe.nil?
         search_results.push(find_and_insert_recipe(yummly_id))
       else
@@ -76,15 +76,15 @@ class Api::RecipesController < ApplicationController
     result = self.class.get("/recipe/#{yummly_id}", query_params)
 
     recipe_info = {
-      yummlyId: result["id"],
+      yummly_id: result["id"],
       name: result["name"],
       ingredients: JSON.generate(result["ingredientLines"]),
-      numberOfServings: result["numberOfServings"],
+      number_of_servings: result["numberOfServings"],
       time: result["totalTimeInSeconds"],
-      sourceUrl: result["source"]["sourceRecipeUrl"],
-      smallImgUrl: result["images"][0]["imageUrlsBySize"]["90"],
-      largeImgUrl: result["images"][0]["imageUrlsBySize"]["360"],
-      mediumImgUrl: result["images"][0]["hostedMediumUrl"]
+      source_url: result["source"]["sourceRecipeUrl"],
+      small_img_url: result["images"][0]["imageUrlsBySize"]["90"],
+      large_img_url: result["images"][0]["imageUrlsBySize"]["360"],
+      medium_img_url: result["images"][0]["hostedMediumUrl"]
     }
     Recipe.create(recipe_info)
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150924224533) do
+ActiveRecord::Schema.define(version: 20151002213925) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,17 +22,17 @@ ActiveRecord::Schema.define(version: 20150924224533) do
   end
 
   create_table "recipes", force: :cascade do |t|
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.string   "yummlyId"
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "yummly_id"
     t.string   "name"
     t.integer  "time"
-    t.string   "sourceUrl"
-    t.string   "smallImgUrl"
-    t.integer  "numberOfServings"
+    t.string   "source_url"
+    t.string   "small_img_url"
+    t.integer  "number_of_servings"
     t.string   "ingredients"
-    t.string   "largeImgUrl"
-    t.string   "mediumImgUrl"
+    t.string   "large_img_url"
+    t.string   "medium_img_url"
   end
 
   create_table "user_favorites", force: :cascade do |t|
