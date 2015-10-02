@@ -1,4 +1,5 @@
 EmberCLI.configure do |c|
-  c.app :frontend
+  c.app :frontend,
+    path:"/app/frontend"
   c.build_timeout = 10
 end
