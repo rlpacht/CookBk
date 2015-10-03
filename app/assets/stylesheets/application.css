@@ -14,8 +14,6 @@
  *= require sessions
  *= require users
  *= require_tree .
-
-
  */
 
  .app-name {
