@@ -20,7 +20,7 @@ class Api::RecipesController < ApplicationController
 
     search_results = []
     total_matches = results["totalMatchCount"]
-    puts results
+    puts "RESULTS #{results}"
     results["matches"].each do |result|
       yummly_id = result["id"]
       recipe = Recipe.find_by({yummly_id: yummly_id})
@@ -51,6 +51,8 @@ class Api::RecipesController < ApplicationController
     recipe_start = ((page_count.to_i) - 1) * results_per_page
     id = ENV["yummly_app_id"]
     key = ENV["yummly_app_key"]
+    puts "ID #{id}"
+    puts "KEY #{key}"
     query_params = {
       query: {
         _app_id: id,
