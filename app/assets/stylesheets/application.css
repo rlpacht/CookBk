@@ -16,6 +16,147 @@
  */
 
 
+.recipe-result {
+  width: 200px;
+  height: 250px;
+  display: inline-block;
+  padding: 10px;
+  margin: 10px 25px 10px 25px;
+  border-radius: 7px;
+  text-align: center;
+  float: left;
+}
+
+.pager-container {
+  text-align: center;
+}
+
+.recipes-container {
+  margin-left: 100px;
+}
+
+.search-tile {
+  border: 4px solid rgb(220, 31, 140);
+}
+
+.fave-tile {
+  border: 4px solid rgb(42, 100, 185);
+}
+
+.search-form {
+  margin: 0px auto;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.no-faves {
+  text-align: center;
+}
+
+.recipe-thumbnail-image {
+  margin: 5px;
+  cursor: pointer;
+}
+
+.recipe-name {
+  cursor: pointer;
+}
+
+.submit-search {
+  margin: 10px;
+}
+
+.header {
+  padding-top: .5%;
+  margin: 0px;
+  background: rgb(20, 72, 116);
+}
+
+.nav-buttons-list a, .signout-button {
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  border-radius: 5px
+}
+
+.nav-buttons-list a:hover, .nav-buttons-list a.active, .signout-button:hover {
+  background-color: rgba(32, 145, 185, 0.9);
+  color: white;
+}
+
+.signout-button {
+  margin-left: 37px;
+}
+
+.logout {
+  position: relative;
+  float: right;
+}
+
+.fave-button {
+  background: rgb(255, 218, 139);
+}
+
+.name-of-recipe {
+  text-align: center;
+  color: black;
+  font-size: 40px;
+}
+
+.recipe-picture, .recipe-img {
+  border-radius: 5%;
+}
+
+.ingredients-container {
+  position: relative;
+  left: 10%;
+}
+
+.ingredients-span {
+  font-size: 130%;
+}
+
+.recipe-ingredients {
+  font-size: 130%;
+  max-width: 70%;
+}
+
+.recipe-time {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 4%;
+}
+
+.notes {
+  font-size: 25px;
+  position: relative;
+  left: 600px;
+}
+
+.titles {
+  display: inline-block;
+}
+.recipe-source {
+  text-align: center;
+  color: black;
+}
+
+.delete-fave {
+  margin: 0px auto;
+}
+
+.nav-btn-container a {
+   color: white;
+}
+
+.nav-btn-container li:hover a:hover{
+   background-color: rgba(32, 145, 185, 0.9);
+}
+
+.app-name {
+  color: white;
+}
+
 .login-form, .signup-form {
   max-width: 300px;
   position: relative;
@@ -90,4 +231,13 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
+
+.signout-container {
+  background: rgb(20, 72, 116);
+}
+
+.signout-button {
+  position: relative;
+  left: 80%;
 }
