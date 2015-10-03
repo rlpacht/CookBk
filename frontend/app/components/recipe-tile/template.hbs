@@ -1,0 +1,24 @@
+{{#link-to  "recipe" recipe}}
+  <img 
+    src={{recipe.mediumImgUrl}}
+    class="recipe-thumbnail-image"
+  >
+{{/link-to}}
+
+{{#if isFavorite}}
+  <button 
+    class="fave-button btn btn-default"
+    {{action "removeFromFavorites"}}>
+    Unfave
+  </button>
+{{else}}
+  <button 
+    class="fave-button btn btn-default"
+    {{action "addToFavorites"}}>
+    Fave
+  </button>
+{{/if}}
+
+<div class='recipe-name'>
+  {{link-to recipe.name "recipe" recipe}}
+</div>

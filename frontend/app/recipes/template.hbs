@@ -1,0 +1,43 @@
+<div class="input-group input-group-lg search-form">
+  {{input
+    class="search form-control"
+    value=searchText
+    autofocus="autofocus"
+    action="searchRecipes"
+    placeholder="Search for Recipes"
+  }}
+  <button class="submit-search btn btn-default"
+   {{action "searchRecipes"}}>
+    Search!
+  </button>
+</div>
+
+{{#if isLoading}}
+
+  <div>{{spinkit-spinner}}</div>
+
+{{else}}
+  <div class="recipes-container row">
+    {{#each recipes as |recipe|}}
+      {{recipe-tile
+        addToFavorites="addToFavorites"
+        removeFromFavorites="removeFromFavorites"
+        recipe=recipe
+        faves=favoritedRecipes
+        favoritesPage=false
+      }}
+    {{/each}}
+  </div>
+
+  {{#unless isRecipesEmpty}}
+    <div class='pager-container row'>
+      {{pagination-pager
+        current=currentPage
+        count=numPages
+        change="pageNumChanged"
+      }}
+    </div>
+
+  {{/unless}}
+
+{{/if}}

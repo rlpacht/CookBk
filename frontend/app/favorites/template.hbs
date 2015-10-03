@@ -1,0 +1,17 @@
+{{#if isFavoritesEmpty}}
+  <h1 class='no-faves'>
+    It looks like you have no Faves!
+  </h1>
+{{else}}
+  <div class='recipes-container'>
+    {{#each favoritedRecipes as |recipe|}}
+      {{recipe-tile
+        addToFavorites="addToFavorites"
+        removeFromFavorites="removeFromFavorites"
+        recipe=recipe
+        faves=favoritedRecipes
+        favoritesPage=true
+      }}
+    {{/each}}
+  </div>
+{{/if}}
