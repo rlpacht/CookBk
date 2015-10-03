@@ -20,7 +20,7 @@ class Api::RecipesController < ApplicationController
 
     search_results = []
     total_matches = results["totalMatchCount"]
-
+    puts results
     results["matches"].each do |result|
       yummly_id = result["id"]
       recipe = Recipe.find_by({yummly_id: yummly_id})
