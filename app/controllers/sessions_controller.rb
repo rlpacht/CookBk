@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-
+	layout "application"
 	def new
 		if logged_in?
 			redirect_to "/recipes"
