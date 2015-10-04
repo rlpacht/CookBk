@@ -1,5 +1,3 @@
-== README
-
 ## Overview
 
 CookBk is a web app for searching and managing recipes. It is backed by [Yummly's API](https://developer.yummly.com/)
