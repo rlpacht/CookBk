@@ -31,7 +31,7 @@ gem "figaro"
 
 gem "httparty"
 
-gem "rails_12factor", group: [:production, :development]
+gem "rails_12factor", group: :production
 
 gem 'pg'
 # Use Unicorn as the app server

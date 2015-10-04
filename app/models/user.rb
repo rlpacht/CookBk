@@ -1,14 +1,16 @@
 class User < ActiveRecord::Base
-	has_many :recipes
+  has_many :recipes
 
-	has_secure_password
+  has_many :notes
 
-	validates :email, presence: true, uniqueness: true
-	validates_confirmation_of :email
-	validates :password_digest, presence: true
+  has_secure_password
 
-	def self.confirm(params)
-		user = User.find_by({email: params[:email]})
-		user.try(:authenticate, params[:password])
-	end
+  validates :email, presence: true, uniqueness: true
+  validates_confirmation_of :email
+  validates :password_digest, presence: true
+
+  def self.confirm(params)
+    user = User.find_by({email: params[:email]})
+    user.try(:authenticate, params[:password])
+  end
 end

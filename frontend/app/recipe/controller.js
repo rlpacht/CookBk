@@ -3,6 +3,12 @@ import Ember from 'ember';
 const RecipeController = Ember.Controller.extend({
   recipe: Ember.computed.alias("model"),
 
+  notes: Ember.computed.alias("recipe.notes"),
+
+  isWritingNote: false,
+
+  newNoteText: null,
+
   displayTime: Ember.computed("recipe.time", function () {
     let seconds = this.get("recipe.time");
     const hours = Math.floor(seconds / 3600);

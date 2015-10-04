@@ -1,4 +1,5 @@
 class Recipe < ActiveRecord::Base
-  has_many :user_favorites 
+  has_many :user_favorites
+  has_many :notes
   # has_many :users through: :user_favorites
 end

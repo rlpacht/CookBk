@@ -26,5 +26,19 @@
     <div class="recipe-picture col-md-5">
       <img class="recipe-img" src={{recipe.largeImgUrl}}>
     </div>
+
+    <div class="recipe-notes">
+      {{#each notes as |note|}}
+      <li class="notes">{{note.text}}</li>
+      <hr>
+      {{/each}}
+    </div>
+    {{#if isWritingNote}}
+      {{textarea
+        value=newNoteText
+      }}
+    {{else}}
+      <button class="add-note-button btn btn-primary col-sm-5">Add new Note</button>
+    {{/if}}
   </div>
 </div>

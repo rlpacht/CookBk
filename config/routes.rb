@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace :api do
     resources :user_favorites, :only => [:create, :destroy, :index]
     resources :recipes, :only => [:index, :show]
+    resources :notes, :only => [:index, :create, :destroy, :update]
   end
 
   root 'application#index'
