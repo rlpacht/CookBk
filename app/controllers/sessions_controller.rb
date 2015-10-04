@@ -24,9 +24,6 @@ class SessionsController < ApplicationController
 	def destroy
 		logout
 		@user = User.new()
-		# respond_to do |format|
-  #     format.html {redirect_to :action => :new, status: 303, notice: "You have been logged out"}
-  #   end
 
 		redirect_to :action => :new, status: 303
 	end
