@@ -3,10 +3,9 @@ class SessionsController < ApplicationController
 	def new
 		if logged_in?
 			redirect_to "/recipes"
-		else
-			@user = User.new()
-			render :new
 		end
+		@user = User.new()
+		render :new
 	end
 
 	def create
