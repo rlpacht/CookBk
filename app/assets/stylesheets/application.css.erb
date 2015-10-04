@@ -16,6 +16,8 @@
  *= require_tree .
  */
 
+//= depend_on_asset "cook_bk_background_copy-min.jpg"
+
  .app-name {
    color: white;
  }
@@ -84,7 +86,7 @@
 
   .login-background, .signup-background {
     max-width: 100%;
-    background-image: url('cook_bk_background_copy-min.jpg');
+    background-image: url('<%= asset_path("cook_bk_background_copy-min.jpg") %> ');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
