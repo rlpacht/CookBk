@@ -1,7 +1,7 @@
 import Ember from 'ember';
 
 const ApplicationController = Ember.Controller.extend({
-
+// TODO: can all of this be removed?
   actions: {
     signOut() {
       $.ajax({
@@ -9,19 +9,7 @@ const ApplicationController = Ember.Controller.extend({
         type: "DELETE",
          headers: {
             "X-CSRF-Token": $('meta[name="csrf-token"]').attr('content')
-          }//, success: ()=> {
-          //   debugger
-          // }, error: () => {
-          //  $.ajax({
-          //     url: "/sessions/new",
-          //     type: "GET",
-          //     headers: {
-          //       "X-CSRF-Token": $('meta[name="csrf-token"]').attr('content')
-          //     }, success: ()=> {
-          //       debugger
-          //     }
-          //  });
-          // }
+          }
       });
     }
   }
