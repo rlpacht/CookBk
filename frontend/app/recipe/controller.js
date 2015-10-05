@@ -21,13 +21,28 @@ const RecipeController = Ember.Controller.extend({
     } else {
       return `${hours} hours and ${minutes} minutes`;
     }
-
   }),
 
   ingredientsArray: Ember.computed("recipe.ingredients", function () {
     const ingredients = this.get("recipe.ingredients");
-    return JSON.parse(ingredients)
-  })
+    return JSON.parse(ingredients);
+  }),
+
+  actions: {
+    addNewNote() {
+      this.set("isWritingNote", true);
+    },
+
+    createNote() {
+      this.set("isWritingNote", false);
+      const newNote = this.store.createRecord("note", {
+        text: this.get("newNoteText"),
+        recipe: this.get("recipe")
+      });
+      newNote.save();
+      this.set("newNoteText", "");
+    }
+  }
 });
 
 export default RecipeController;

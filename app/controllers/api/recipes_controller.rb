@@ -42,7 +42,10 @@ class Api::RecipesController < ApplicationController
 
   def show
     recipe = Recipe.find(params[:id])
-    render json: {recipe: recipe}
+    render json: {
+      recipe: recipe,
+      notes: recipe.notes.where(user_id: current_user.id)
+    }
   end
 
   private

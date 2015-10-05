@@ -1,11 +1,8 @@
 class Api::NotesController < ApplicationController
 
+  # TODO: Figure out how to make Ember request this route
   def index
-    recipe_id = params[:recipe_id]
-    recipe = Recipe.find(recipe_id)
-    recipe_notes = recipe.notes
 
-    render json: {notes: recipe_notes}
   end
 
   def create
@@ -35,10 +32,3 @@ class Api::NotesController < ApplicationController
   end
 
 end
-
-{
-  note: {
-    text: '',
-    recipe_id: 1
-  }
-}
