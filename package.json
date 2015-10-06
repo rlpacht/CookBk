@@ -1,7 +1,7 @@
 {
   "repository": {
     "type": "git",
-    "url": "git://github.com/rlpacht/Cook_book.git"
+    "url": "git://github.com/rlpacht/CookBk.git"
   },
   "license": "ISC",
   "devDependencies": {
