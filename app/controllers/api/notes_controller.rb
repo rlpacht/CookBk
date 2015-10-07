@@ -1,12 +1,11 @@
 class Api::NotesController < ApplicationController
 
   # TODO: Figure out how to make Ember request this route
-  # def index
-  #   recipe_id = params[:recipe_id]
-  #   recipe = Recipe.find(recipe_id)
-  #   notes = recipe.notes.where({user_id: current_user.id})
-  #   render json: {notes: notes}
-  # end
+  def index
+    ids = params[:ids]
+    notes = Note.where(id: ids)
+    render json: {notes: notes}
+  end
 
   def create
     note_text = params[:note][:text]

@@ -5,7 +5,8 @@ const ApplicationAdapter = ActiveModelAdapter.extend({
   headers: {
     "X-CSRF-Token": $('meta[name="csrf-token"]').attr('content')
   },
-  namespace: "api"
+  namespace: "api",
+  coalesceFindRequests: true
 });
 
 export default ApplicationAdapter;
