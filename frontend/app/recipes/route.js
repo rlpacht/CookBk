@@ -6,7 +6,7 @@ const RecipesRoute = Ember.Route.extend({
     const searchText = params.searchText;
     const currentPage = params.currentPage || 1;
     const query = {search: searchText, currentPage: currentPage};
-    var recipes = this.store.find('recipe', { query: query });
+    var recipes = this.store.findQuery('recipe', { query: query });
 
     const hash = {
       recipes: recipes,

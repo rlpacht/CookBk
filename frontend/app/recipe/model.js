@@ -10,7 +10,7 @@ const RecipeModel = DS.Model.extend({
   largeImgUrl: DS.attr('string'),
   mediumImgUrl: DS.attr('string'),
   ingredients: DS.attr('string'),
-  notes: DS.hasMany('note')
+  notes: DS.hasMany('note', {async: true})
 });
 
 export default RecipeModel;

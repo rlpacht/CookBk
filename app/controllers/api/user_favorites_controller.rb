@@ -14,7 +14,7 @@ class Api::UserFavoritesController < ApplicationController
   def index
     user_favorites = UserFavorite.where({user_id: current_user.id})
     recipes = user_favorites.map do |user_favorite|
-      user_favorite.recipe
+      user_favorite.recipe.json_with_note_ids
     end
     render json: {user_favorites: user_favorites, recipes: recipes}
   end

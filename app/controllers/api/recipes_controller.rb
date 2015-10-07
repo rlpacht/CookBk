@@ -31,8 +31,12 @@ class Api::RecipesController < ApplicationController
       end
     end
 
+    search_respone = search_results.map do |result|
+      result.json_with_note_ids
+    end
+
     render json: {
-      recipes: search_results,
+      recipes: search_respone,
       meta: {
         total_matches: total_matches,
         results_per_page: results_per_page
@@ -43,8 +47,7 @@ class Api::RecipesController < ApplicationController
   def show
     recipe = Recipe.find(params[:id])
     render json: {
-      recipe: recipe,
-      notes: recipe.notes.where(user_id: current_user.id)
+      recipe: recipe.json_with_note_ids
     }
   end
 
