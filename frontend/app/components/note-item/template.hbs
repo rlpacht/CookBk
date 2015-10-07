@@ -1,16 +1,20 @@
-{{#if isEditing}}
-  {{textarea
-    value=note.text
-    focus-out="saveChanges"
-    action="saveChanges"
-  }}
-{{else}}
-  <li class="note">{{note.text}}</li>
-  <button class="glyphicon glyphicon-pencil" {{action "editNote"}}></button>
-  <button type="button" class="close" aria-label="Close" {{action "deleteNote"}}>
-    <span aria-hidden="true">
-      &times;
-    </span>
-  </button>
-  {{!-- <button class="glyphicon glyphicon-remove"{{action "deleteNote"}}></button> --}}
-{{/if}}
+<div class="note-container">
+  {{#if isEditing}}
+    {{textarea
+      value=note.text
+      focus-out="saveChanges"
+      action="saveChanges"
+    }}
+  {{else}}
+    <li class="note">
+      <span class="note-text">{{note.text}}</span>
+      <button type="button" class="close" aria-label="Close" {{action "deleteNote"}}>
+        <span aria-hidden="true">
+          &times;
+        </span>
+      </button>
+      <button class="edit-note glyphicon glyphicon-pencil" {{action "editNote"}}></button>
+    </li>
+    {{!-- <button class="glyphicon glyphicon-remove"{{action "deleteNote"}}></button> --}}
+  {{/if}}
+</div>

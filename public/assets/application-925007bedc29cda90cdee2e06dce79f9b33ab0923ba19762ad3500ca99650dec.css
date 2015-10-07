@@ -10,11 +10,11 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_self
- *= require_tree .
+
+
  */
 
-//= depend_on_asset "cook_bk_background_copy-min.jpg"
+
 
 .app-name {
  color: white;
@@ -84,7 +84,7 @@
 
 .login-background, .signup-background {
   max-width: 100%;
-  background-image: url('<%= asset_path("cook_bk_background_copy-min.jpg") %> ');
+  background-image: url('/assets/cook_bk_background_copy-min-cb1ed2000709fec31dbbf98129b0011846a6cfa78fdc74aa69c0b15cbeb7a0c5.jpg ');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
@@ -221,15 +221,9 @@
   margin-bottom: 4%;
 }
 
-.recipe-notes-container {
-  position: relative;
-  left: 3%;
-}
-
 .note {
   margin-bottom: 4%;
   border-bottom: 1px solid #EEE;
-  max-width: 70%;
 }
 .note-text {
   font-size: 130%;
@@ -237,10 +231,6 @@
 
 .add-note-button {
   margin-top: 2%;
-}
-
-.edit-note {
-  margin-left: 1%;
 }
 
 .titles {

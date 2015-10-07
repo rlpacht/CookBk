@@ -10,100 +10,100 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_self
- *= require_tree .
+
+
  */
 
-//= depend_on_asset "cook_bk_background_copy-min.jpg"
 
-.app-name {
- color: white;
-}
 
-.login-form, .signup-form {
-  max-width: 300px;
-  position: relative;
-}
+ .app-name {
+   color: white;
+ }
 
-.login-container, .signup-container {
-  position: relative;
-  top: 30%;
-  left: 66%;
-  padding-top: 10%;
-  max-width: 30%;
-}
+ .login-form, .signup-form {
+    max-width: 300px;
+    position: relative;
+  }
 
-.why-login{
-  font-size: 30px;
-  margin-top: 3%;
-  color: white;
-}
+  .login-container, .signup-container {
+    position: relative;
+    top: 30%;
+    left: 66%;
+    padding-top: 10%;
+    max-width: 30%;
+  }
 
-.signup-link{
-  position: relative;
-  font-size: 20px;
-  margin-top: 3%;
-}
+  .why-login{
+    font-size: 30px;
+    margin-top: 3%;
+    color: white;
+  }
 
-.signup-link a {
-  color: white;
-}
+  .signup-link{
+    position: relative;
+    font-size: 20px;
+    margin-top: 3%;
+  }
 
-.signup-button {
-  background: rgb(190, 95, 124);
-  color: black;
-}
+  .signup-link a {
+    color: white;
+  }
 
-.login-submit {
-  margin-bottom: 3%;
-}
+  .signup-button {
+    background: rgb(190, 95, 124);
+    color: black;
+  }
 
-.email-field, .password-field {
-  margin-bottom: 4%;
-}
+  .login-submit {
+    margin-bottom: 3%;
+  }
 
-.form-group .form-horizontal {
-  margin-left: 0px;
-}
+  .email-field, .password-field {
+    margin-bottom: 4%;
+  }
 
-.page-message {
-  font-size: 40px;
-  text-align: center;
-  padding: 10px;
-}
+  .form-group .form-horizontal {
+    margin-left: 0px;
+  }
 
-.password-notice {
-  text-align: center;
-  padding: 25px;
-  color: red;
-}
+  .page-message {
+    font-size: 40px;
+    text-align: center;
+    padding: 10px;
+  }
 
-.signup-error {
-  color: white;
-}
+  .password-notice {
+    text-align: center;
+    padding: 25px;
+    color: red;
+  }
 
-.login-background, .signup-background {
-  max-width: 100%;
-  background-image: url('<%= asset_path("cook_bk_background_copy-min.jpg") %> ');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
+  .signup-error {
+    color: white;
+  }
 
-.signout-container {
- background: rgb(20, 72, 116);
-}
+  .login-background, .signup-background {
+    max-width: 100%;
+    background-image: url('/assets/cook_bk_background_copy-min-cb1ed2000709fec31dbbf98129b0011846a6cfa78fdc74aa69c0b15cbeb7a0c5.jpg ');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 
-.signout-button {
- position: relative;
- left: 80%;
-}
+ .signout-container {
+   background: rgb(20, 72, 116);
+ }
+
+ .signout-button {
+   position: relative;
+   left: 80%;
+ }
 
 .recipe-result {
   width: 200px;
@@ -194,25 +194,22 @@
 
 .recipe-picture, .recipe-img {
   border-radius: 5%;
-  /*margin-left: 2%;*/
+  margin-left: 2%;
 }
 
 .ingredients-container {
   position: relative;
-  left: 5%;
+  left: 8%;
 }
 
 .ingredients-span, .notes-span {
   font-size: 130%;
-  /*margin-bottom: 10%;*/
-  /*border-bottom: 1px solid #EEE;*/
 }
 
 .recipe-ingredients {
   font-size: 130%;
   max-width: 70%;
-  margin-bottom: 4%;
-  border-bottom: 1px solid #EEE;
+  border-bottom: 1% solid #C0C0C0;
 }
 
 .recipe-time {
@@ -221,16 +218,6 @@
   margin-bottom: 4%;
 }
 
-.recipe-notes-container {
-  position: relative;
-  left: 3%;
-}
-
-.note {
-  margin-bottom: 4%;
-  border-bottom: 1px solid #EEE;
-  max-width: 70%;
-}
 .note-text {
   font-size: 130%;
 }
@@ -239,9 +226,9 @@
   margin-top: 2%;
 }
 
-.edit-note {
-  margin-left: 1%;
-}
+/*button:not([.edit-note]) {
+  font-size: inherit;
+}*/
 
 .titles {
   display: inline-block;

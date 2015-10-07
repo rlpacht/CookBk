@@ -194,6 +194,7 @@
 
 .recipe-picture, .recipe-img {
   border-radius: 5%;
+  margin-left: 3%;
 }
 
 .ingredients-container {
@@ -201,13 +202,16 @@
   left: 10%;
 }
 
-.ingredients-span {
+.ingredients-span, .notes-span {
   font-size: 130%;
 }
 
 .recipe-ingredients {
   font-size: 130%;
   max-width: 70%;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom: grey;
 }
 
 .recipe-time {

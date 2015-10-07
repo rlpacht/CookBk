@@ -15,43 +15,53 @@
       Ready in {{displayTime}}
     </div>
 
-    <div class="ingredients-container col-md-5">
+    <div class="ingredients-container col-md-4">
       <ul>
-        <span class="ingredients-span">Ingredients</span>
+        <strong>
+          <span class="ingredients-span">
+            Ingredients
+          </span>
+        </strong>
         <hr>
         {{#each ingredientsArray as |ingredient|}}
           <li class="recipe-ingredients">{{ingredient}}</li>
-          {{!-- TODO: add border-bottom to element to replace hr tag --}}
         {{/each}}
       </ul>
     </div>
 
-    <div class="recipe-picture col-md-4">
+    <div class="recipe-picture col-md-3">
       <img class="recipe-img" src={{recipe.largeImgUrl}}>
     </div>
 
-    <div class="recipe-notes-container">
-      {{#each notes as |note|}}
-        {{note-item
-          note=note
-        }}
-      {{/each}}
+    <div class="recipe-notes-container col-md-4">
+      <ul>
+        <strong>
+          <span class="notes-span">
+            Notes
+          </span>
+        </strong>
+        <hr>
+        {{#each notes as |note|}}
+          {{note-item
+            note=note
+          }}
+        {{/each}}
+        {{#if isWritingNote}}
+          {{textarea
+            value=newNoteText
+          }}
+
+          <button class="save-note-button btn btn-success"
+            {{action "createNote"}}>
+            Save
+          </button>
+        {{else}}
+          <button class="add-note-button btn btn-primary"
+            {{action "addNewNote"}}>
+            Add new Note
+          </button>
+        {{/if}}
+      </ul>
     </div>
-
-    {{#if isWritingNote}}
-      {{textarea
-        value=newNoteText
-      }}
-
-      <button class="save-note-button btn btn-success"
-        {{action "createNote"}}>
-        Save
-      </button>
-    {{else}}
-      <button class="add-note-button btn btn-primary col-sm-5"
-        {{action "addNewNote"}}>
-        Add new Note
-      </button>
-    {{/if}}
   </div>
 </div>

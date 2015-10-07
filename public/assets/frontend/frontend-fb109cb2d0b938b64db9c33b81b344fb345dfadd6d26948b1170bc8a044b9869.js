@@ -30,7 +30,8 @@ define('frontend/application/adapter', ['exports', 'ember-data', 'active-model-a
     headers: {
       "X-CSRF-Token": $('meta[name="csrf-token"]').attr('content')
     },
-    namespace: "api"
+    namespace: "api",
+    coalesceFindRequests: true
   });
 
   exports['default'] = ApplicationAdapter;
@@ -348,7 +349,7 @@ define('frontend/components/note-item/template', ['exports'], function (exports)
               "column": 0
             },
             "end": {
-              "line": 16,
+              "line": 18,
               "column": 0
             }
           },
@@ -363,26 +364,33 @@ define('frontend/components/note-item/template', ['exports'], function (exports)
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("li");
           dom.setAttribute(el1,"class","note");
-          var el2 = dom.createComment("");
-          dom.appendChild(el1, el2);
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n  ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("button");
-          dom.setAttribute(el1,"class","glyphicon glyphicon-pencil");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n  ");
-          dom.appendChild(el0, el1);
-          var el1 = dom.createElement("button");
-          dom.setAttribute(el1,"type","button");
-          dom.setAttribute(el1,"class","close");
-          dom.setAttribute(el1,"aria-label","Close");
           var el2 = dom.createTextNode("\n    ");
           dom.appendChild(el1, el2);
           var el2 = dom.createElement("span");
-          dom.setAttribute(el2,"aria-hidden","true");
-          var el3 = dom.createTextNode("\n      ×\n    ");
+          dom.setAttribute(el2,"class","note-text");
+          var el3 = dom.createComment("");
           dom.appendChild(el2, el3);
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n    ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createElement("button");
+          dom.setAttribute(el2,"type","button");
+          dom.setAttribute(el2,"class","close");
+          dom.setAttribute(el2,"aria-label","Close");
+          var el3 = dom.createTextNode("\n      ");
+          dom.appendChild(el2, el3);
+          var el3 = dom.createElement("span");
+          dom.setAttribute(el3,"aria-hidden","true");
+          var el4 = dom.createTextNode("\n        ×\n      ");
+          dom.appendChild(el3, el4);
+          dom.appendChild(el2, el3);
+          var el3 = dom.createTextNode("\n    ");
+          dom.appendChild(el2, el3);
+          dom.appendChild(el1, el2);
+          var el2 = dom.createTextNode("\n    ");
+          dom.appendChild(el1, el2);
+          var el2 = dom.createElement("button");
+          dom.setAttribute(el2,"class","edit-note glyphicon glyphicon-pencil");
           dom.appendChild(el1, el2);
           var el2 = dom.createTextNode("\n  ");
           dom.appendChild(el1, el2);
@@ -392,18 +400,19 @@ define('frontend/components/note-item/template', ['exports'], function (exports)
           return el0;
         },
         buildRenderNodes: function buildRenderNodes(dom, fragment, contextualElement) {
-          var element0 = dom.childAt(fragment, [3]);
-          var element1 = dom.childAt(fragment, [5]);
+          var element0 = dom.childAt(fragment, [1]);
+          var element1 = dom.childAt(element0, [3]);
+          var element2 = dom.childAt(element0, [5]);
           var morphs = new Array(3);
-          morphs[0] = dom.createMorphAt(dom.childAt(fragment, [1]),0,0);
-          morphs[1] = dom.createElementMorph(element0);
-          morphs[2] = dom.createElementMorph(element1);
+          morphs[0] = dom.createMorphAt(dom.childAt(element0, [1]),0,0);
+          morphs[1] = dom.createElementMorph(element1);
+          morphs[2] = dom.createElementMorph(element2);
           return morphs;
         },
         statements: [
-          ["content","note.text",["loc",[null,[8,19],[8,32]]]],
-          ["element","action",["editNote"],[],["loc",[null,[9,45],[9,66]]]],
-          ["element","action",["deleteNote"],[],["loc",[null,[10,57],[10,80]]]]
+          ["content","note.text",["loc",[null,[9,28],[9,41]]]],
+          ["element","action",["deleteNote"],[],["loc",[null,[10,59],[10,82]]]],
+          ["element","action",["editNote"],[],["loc",[null,[15,57],[15,78]]]]
         ],
         locals: [],
         templates: []
@@ -419,7 +428,7 @@ define('frontend/components/note-item/template', ['exports'], function (exports)
             "column": 0
           },
           "end": {
-            "line": 16,
+            "line": 18,
             "column": 7
           }
         },
@@ -442,7 +451,7 @@ define('frontend/components/note-item/template', ['exports'], function (exports)
         return morphs;
       },
       statements: [
-        ["block","if",[["get","isEditing",["loc",[null,[1,6],[1,15]]]]],[],0,1,["loc",[null,[1,0],[16,7]]]]
+        ["block","if",[["get","isEditing",["loc",[null,[1,6],[1,15]]]]],[],0,1,["loc",[null,[1,0],[18,7]]]]
       ],
       locals: [],
       templates: [child0, child1]
@@ -1166,7 +1175,7 @@ define('frontend/recipe/model', ['exports', 'ember-data'], function (exports, DS
     largeImgUrl: DS['default'].attr('string'),
     mediumImgUrl: DS['default'].attr('string'),
     ingredients: DS['default'].attr('string'),
-    notes: DS['default'].hasMany('note')
+    notes: DS['default'].hasMany('note', { async: true })
   });
 
   exports['default'] = RecipeModel;
@@ -1180,11 +1189,7 @@ define('frontend/recipe/route', ['exports', 'ember'], function (exports, Ember) 
 
     model: function model(params) {
       var id = params.id;
-      return this.store.find('recipe', id);
-    },
-
-    afterModel: function afterModel(recipe) {
-      recipe.get('notes');
+      return this.store.findRecord('recipe', id);
     }
   });
 
@@ -1207,7 +1212,7 @@ define('frontend/recipe/template', ['exports'], function (exports) {
               "column": 8
             },
             "end": {
-              "line": 25,
+              "line": 24,
               "column": 8
             }
           },
@@ -1248,12 +1253,12 @@ define('frontend/recipe/template', ['exports'], function (exports) {
           "loc": {
             "source": null,
             "start": {
-              "line": 34,
-              "column": 6
+              "line": 36,
+              "column": 8
             },
             "end": {
-              "line": 38,
-              "column": 6
+              "line": 40,
+              "column": 8
             }
           },
           "moduleName": "frontend/recipe/template.hbs"
@@ -1263,7 +1268,7 @@ define('frontend/recipe/template', ['exports'], function (exports) {
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("        ");
+          var el1 = dom.createTextNode("          ");
           dom.appendChild(el0, el1);
           var el1 = dom.createComment("");
           dom.appendChild(el0, el1);
@@ -1277,7 +1282,7 @@ define('frontend/recipe/template', ['exports'], function (exports) {
           return morphs;
         },
         statements: [
-          ["inline","note-item",[],["note",["subexpr","@mut",[["get","note",["loc",[null,[36,15],[36,19]]]]],[],[]]],["loc",[null,[35,8],[37,10]]]]
+          ["inline","note-item",[],["note",["subexpr","@mut",[["get","note",["loc",[null,[38,17],[38,21]]]]],[],[]]],["loc",[null,[37,10],[39,12]]]]
         ],
         locals: ["note"],
         templates: []
@@ -1291,11 +1296,11 @@ define('frontend/recipe/template', ['exports'], function (exports) {
             "source": null,
             "start": {
               "line": 41,
-              "column": 4
+              "column": 8
             },
             "end": {
               "line": 50,
-              "column": 4
+              "column": 8
             }
           },
           "moduleName": "frontend/recipe/template.hbs"
@@ -1305,15 +1310,15 @@ define('frontend/recipe/template', ['exports'], function (exports) {
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("      ");
+          var el1 = dom.createTextNode("          ");
           dom.appendChild(el0, el1);
           var el1 = dom.createComment("");
           dom.appendChild(el0, el1);
-          var el1 = dom.createTextNode("\n\n      ");
+          var el1 = dom.createTextNode("\n\n          ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("button");
           dom.setAttribute(el1,"class","save-note-button btn btn-success");
-          var el2 = dom.createTextNode("\n        Save\n      ");
+          var el2 = dom.createTextNode("\n            Save\n          ");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
           var el1 = dom.createTextNode("\n");
@@ -1328,8 +1333,8 @@ define('frontend/recipe/template', ['exports'], function (exports) {
           return morphs;
         },
         statements: [
-          ["inline","textarea",[],["value",["subexpr","@mut",[["get","newNoteText",["loc",[null,[43,14],[43,25]]]]],[],[]]],["loc",[null,[42,6],[44,8]]]],
-          ["element","action",["createNote"],[],["loc",[null,[47,8],[47,31]]]]
+          ["inline","textarea",[],["value",["subexpr","@mut",[["get","newNoteText",["loc",[null,[43,18],[43,29]]]]],[],[]]],["loc",[null,[42,10],[44,12]]]],
+          ["element","action",["createNote"],[],["loc",[null,[47,12],[47,35]]]]
         ],
         locals: [],
         templates: []
@@ -1343,11 +1348,11 @@ define('frontend/recipe/template', ['exports'], function (exports) {
             "source": null,
             "start": {
               "line": 50,
-              "column": 4
+              "column": 8
             },
             "end": {
               "line": 55,
-              "column": 4
+              "column": 8
             }
           },
           "moduleName": "frontend/recipe/template.hbs"
@@ -1357,11 +1362,11 @@ define('frontend/recipe/template', ['exports'], function (exports) {
         hasRendered: false,
         buildFragment: function buildFragment(dom) {
           var el0 = dom.createDocumentFragment();
-          var el1 = dom.createTextNode("      ");
+          var el1 = dom.createTextNode("          ");
           dom.appendChild(el0, el1);
           var el1 = dom.createElement("button");
-          dom.setAttribute(el1,"class","add-note-button btn btn-primary col-sm-5");
-          var el2 = dom.createTextNode("\n        Add new Note\n      ");
+          dom.setAttribute(el1,"class","add-note-button btn btn-primary");
+          var el2 = dom.createTextNode("\n            Add new Note\n          ");
           dom.appendChild(el1, el2);
           dom.appendChild(el0, el1);
           var el1 = dom.createTextNode("\n");
@@ -1375,7 +1380,7 @@ define('frontend/recipe/template', ['exports'], function (exports) {
           return morphs;
         },
         statements: [
-          ["element","action",["addNewNote"],[],["loc",[null,[52,8],[52,31]]]]
+          ["element","action",["addNewNote"],[],["loc",[null,[52,12],[52,35]]]]
         ],
         locals: [],
         templates: []
@@ -1391,7 +1396,7 @@ define('frontend/recipe/template', ['exports'], function (exports) {
             "column": 0
           },
           "end": {
-            "line": 57,
+            "line": 59,
             "column": 6
           }
         },
@@ -1449,7 +1454,7 @@ define('frontend/recipe/template', ['exports'], function (exports) {
         var el3 = dom.createTextNode("\n\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("div");
-        dom.setAttribute(el3,"class","ingredients-container col-md-5");
+        dom.setAttribute(el3,"class","ingredients-container col-md-4");
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
         var el4 = dom.createElement("ul");
@@ -1477,7 +1482,7 @@ define('frontend/recipe/template', ['exports'], function (exports) {
         var el3 = dom.createTextNode("\n\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("div");
-        dom.setAttribute(el3,"class","recipe-picture col-md-4");
+        dom.setAttribute(el3,"class","recipe-picture col-md-3");
         var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
         var el4 = dom.createElement("img");
@@ -1489,19 +1494,34 @@ define('frontend/recipe/template', ['exports'], function (exports) {
         var el3 = dom.createTextNode("\n\n    ");
         dom.appendChild(el2, el3);
         var el3 = dom.createElement("div");
-        dom.setAttribute(el3,"class","recipe-notes-container");
-        var el4 = dom.createTextNode("\n");
+        dom.setAttribute(el3,"class","recipe-notes-container col-md-4");
+        var el4 = dom.createTextNode("\n      ");
         dom.appendChild(el3, el4);
-        var el4 = dom.createComment("");
+        var el4 = dom.createElement("ul");
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("span");
+        dom.setAttribute(el5,"class","notes-span");
+        var el6 = dom.createTextNode("Notes");
+        dom.appendChild(el5, el6);
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n        ");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createElement("hr");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("\n");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createComment("");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createComment("");
+        dom.appendChild(el4, el5);
+        var el5 = dom.createTextNode("      ");
+        dom.appendChild(el4, el5);
         dom.appendChild(el3, el4);
-        var el4 = dom.createTextNode("    ");
+        var el4 = dom.createTextNode("\n    ");
         dom.appendChild(el3, el4);
         dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("\n\n");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createComment("");
-        dom.appendChild(el2, el3);
-        var el3 = dom.createTextNode("  ");
+        var el3 = dom.createTextNode("\n  ");
         dom.appendChild(el2, el3);
         dom.appendChild(el1, el2);
         var el2 = dom.createTextNode("\n");
@@ -1513,24 +1533,25 @@ define('frontend/recipe/template', ['exports'], function (exports) {
         var element2 = dom.childAt(fragment, [0, 1, 1]);
         var element3 = dom.childAt(fragment, [2, 1]);
         var element4 = dom.childAt(element3, [5, 1]);
+        var element5 = dom.childAt(element3, [7, 1]);
         var morphs = new Array(7);
         morphs[0] = dom.createAttrMorph(element2, 'href');
         morphs[1] = dom.createMorphAt(element2,1,1);
         morphs[2] = dom.createMorphAt(dom.childAt(element3, [1]),1,1);
         morphs[3] = dom.createMorphAt(dom.childAt(element3, [3, 1]),5,5);
         morphs[4] = dom.createAttrMorph(element4, 'src');
-        morphs[5] = dom.createMorphAt(dom.childAt(element3, [7]),1,1);
-        morphs[6] = dom.createMorphAt(element3,9,9);
+        morphs[5] = dom.createMorphAt(element5,5,5);
+        morphs[6] = dom.createMorphAt(element5,6,6);
         return morphs;
       },
       statements: [
         ["attribute","href",["get","recipe.sourceUrl",["loc",[null,[5,13],[5,29]]]]],
         ["content","recipe.name",["loc",[null,[7,6],[7,21]]]],
         ["content","displayTime",["loc",[null,[15,15],[15,30]]]],
-        ["block","each",[["get","ingredientsArray",["loc",[null,[22,16],[22,32]]]]],[],0,null,["loc",[null,[22,8],[25,17]]]],
-        ["attribute","src",["get","recipe.largeImgUrl",["loc",[null,[30,36],[30,54]]]]],
-        ["block","each",[["get","notes",["loc",[null,[34,14],[34,19]]]]],[],1,null,["loc",[null,[34,6],[38,15]]]],
-        ["block","if",[["get","isWritingNote",["loc",[null,[41,10],[41,23]]]]],[],2,3,["loc",[null,[41,4],[55,11]]]]
+        ["block","each",[["get","ingredientsArray",["loc",[null,[22,16],[22,32]]]]],[],0,null,["loc",[null,[22,8],[24,17]]]],
+        ["attribute","src",["get","recipe.largeImgUrl",["loc",[null,[29,36],[29,54]]]]],
+        ["block","each",[["get","notes",["loc",[null,[36,16],[36,21]]]]],[],1,null,["loc",[null,[36,8],[40,17]]]],
+        ["block","if",[["get","isWritingNote",["loc",[null,[41,14],[41,27]]]]],[],2,3,["loc",[null,[41,8],[55,15]]]]
       ],
       locals: [],
       templates: [child0, child1, child2, child3]
@@ -1612,7 +1633,7 @@ define('frontend/recipes/route', ['exports', 'ember'], function (exports, Ember)
       var searchText = params.searchText;
       var currentPage = params.currentPage || 1;
       var query = { search: searchText, currentPage: currentPage };
-      var recipes = this.store.find('recipe', { query: query });
+      var recipes = this.store.findQuery('recipe', { query: query });
 
       var hash = {
         recipes: recipes,
@@ -3276,7 +3297,7 @@ define('frontend/user-favorite/model', ['exports', 'ember-data'], function (expo
   'use strict';
 
   var UserFavorite = DS['default'].Model.extend({
-    recipe: DS['default'].belongsTo('recipe')
+    recipe: DS['default'].belongsTo('recipe', { async: false })
   });
 
   exports['default'] = UserFavorite;
@@ -3289,13 +3310,13 @@ define('frontend/user-favorite/model', ['exports', 'ember-data'], function (expo
 /* jshint ignore:start */
 
 define('frontend/config/environment', ['ember'], function(Ember) {
-  return { 'default': {"modulePrefix":"frontend","environment":"development","baseURL":"/","locationType":"auto","EmberENV":{"FEATURES":{}},"APP":{"name":"frontend","version":"0.0.0+00c3f6b2"},"contentSecurityPolicyHeader":"Content-Security-Policy-Report-Only","contentSecurityPolicy":{"default-src":"'none'","script-src":"'self' 'unsafe-eval'","font-src":"'self'","connect-src":"'self'","img-src":"'self'","style-src":"'self'","media-src":"'self'"},"exportApplicationGlobal":true}};
+  return { 'default': {"modulePrefix":"frontend","environment":"development","baseURL":"/","locationType":"auto","EmberENV":{"FEATURES":{}},"APP":{"name":"frontend","version":"0.0.0+64a92cff"},"contentSecurityPolicyHeader":"Content-Security-Policy-Report-Only","contentSecurityPolicy":{"default-src":"'none'","script-src":"'self' 'unsafe-eval'","font-src":"'self'","connect-src":"'self'","img-src":"'self'","style-src":"'self'","media-src":"'self'"},"exportApplicationGlobal":true}};
 });
 
 if (runningTests) {
   require("frontend/tests/test-helper");
 } else {
-  require("frontend/app")["default"].create({"name":"frontend","version":"0.0.0+00c3f6b2"});
+  require("frontend/app")["default"].create({"name":"frontend","version":"0.0.0+64a92cff"});
 }
 
 /* jshint ignore:end */
