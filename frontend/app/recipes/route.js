@@ -10,7 +10,7 @@ const RecipesRoute = Ember.Route.extend({
 
     const hash = {
       recipes: recipes,
-      userFavorites: this.store.findAll('userFavorite'),
+      userFavorites: this.store.findAll('userFavorite')
     }
 
     return Ember.RSVP.hash(hash);

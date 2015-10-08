@@ -1,18 +1,18 @@
 {{#link-to  "recipe" recipe}}
-  <img 
+  <img
     src={{recipe.mediumImgUrl}}
     class="recipe-thumbnail-image"
   >
 {{/link-to}}
 
 {{#if isFavorite}}
-  <button 
+  <button
     class="fave-button btn btn-default"
     {{action "removeFromFavorites"}}>
     Unfave
   </button>
 {{else}}
-  <button 
+  <button
     class="fave-button btn btn-default"
     {{action "addToFavorites"}}>
     Fave

@@ -1,12 +1,13 @@
 import Ember from 'ember';
 
 const FavoritesController = Ember.Controller.extend({
-
   favoritedRecipes: Ember.computed.mapBy('userFavorites', 'recipe'),
+
+  initialFavoritedRecipes: null,
 
   userFavorites: Ember.computed.alias('model'),
 
-  isFavoritesEmpty: Ember.computed.empty('favoritedRecipes'),
+  isFavoritesEmpty: Ember.computed.empty('initialFavoritedRecipes'),
 
   actions: {
     addToFavorites(recipe) {
@@ -15,7 +16,7 @@ const FavoritesController = Ember.Controller.extend({
     },
 
     removeFromFavorites(recipe) {
-      let unFaved = this.store.peekAll('userFavorite').findBy('recipe', recipe)
+      let unFaved = this.store.peekAll('userFavorite').findBy('recipe', recipe);
       unFaved.destroyRecord();
     }
   }
