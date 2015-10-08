@@ -3,11 +3,11 @@ import Ember from 'ember';
 const FavoritesController = Ember.Controller.extend({
   favoritedRecipes: Ember.computed.mapBy('userFavorites', 'recipe'),
 
-  initialFavoritedRecipes: null,
+  // initialFavoritedRecipes: null,
 
   userFavorites: Ember.computed.alias('model'),
 
-  isFavoritesEmpty: Ember.computed.empty('initialFavoritedRecipes'),
+  isFavoritesEmpty: Ember.computed.empty('favoritedRecipes'),
 
   actions: {
     addToFavorites(recipe) {

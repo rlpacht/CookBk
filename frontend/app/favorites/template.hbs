@@ -4,12 +4,12 @@
   </h1>
 {{else}}
   <div class='recipes-container'>
-    {{#each initialFavoritedRecipes as |recipe|}}
+    {{#each favoritedRecipes as |recipe|}}
       {{recipe-tile
         addToFavorites="addToFavorites"
         removeFromFavorites="removeFromFavorites"
         recipe=recipe
-        faves=initialFavoritedRecipes
+        faves=favoritedRecipes
         favoritesPage=true
       }}
     {{/each}}
