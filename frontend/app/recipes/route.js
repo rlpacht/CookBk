@@ -17,6 +17,7 @@ const RecipesRoute = Ember.Route.extend({
   },
 
   setupController(controller, model) {
+    this._super(controller, model);
     controller.set('recipes', model.recipes);
     controller.set('userFavorites', model.userFavorites);
     const metadata = this.store.metadataFor('recipe');

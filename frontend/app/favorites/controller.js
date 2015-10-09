@@ -1,13 +1,20 @@
 import Ember from 'ember';
 
 const FavoritesController = Ember.Controller.extend({
-  favoritedRecipes: Ember.computed.mapBy('userFavorites', 'recipe'),
-
-  // initialFavoritedRecipes: null,
 
   userFavorites: Ember.computed.alias('model'),
 
-  isFavoritesEmpty: Ember.computed.empty('favoritedRecipes'),
+  // favoritedRecipes is an up to date list of the favorited recipes
+  // It is used to let each recipe tile know whether to show the
+  // 'Fave' or 'Unfave' button
+  favoritedRecipes: Ember.computed.mapBy('userFavorites', 'recipe'),
+
+  // initialFavoritedRecipes is set in setupController and does not change
+  // This ensures that recipes don't disappear from the page when they are
+  // unfavorited
+  initialFavoritedRecipes: null,
+
+  isFavoritesEmpty: Ember.computed.empty('initialFavoritedRecipes'),
 
   actions: {
     addToFavorites(recipe) {
