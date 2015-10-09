@@ -17,19 +17,24 @@
   <div>{{spinkit-spinner}}</div>
 
 {{else}}
-  <div class="recipes-container row">
-    {{#each recipes as |recipe|}}
-      {{recipe-tile
-        addToFavorites="addToFavorites"
-        removeFromFavorites="removeFromFavorites"
-        recipe=recipe
-        faves=favoritedRecipes
-        favoritesPage=false
-      }}
-    {{/each}}
-  </div>
 
-  {{#unless isRecipesEmpty}}
+  {{#if isRecipesEmpty}}
+    <h1 class='no-results'>
+      No recipes found
+    </h1>
+  {{else}}
+    <div class="recipes-container row">
+      {{#each recipes as |recipe|}}
+        {{recipe-tile
+          addToFavorites="addToFavorites"
+          removeFromFavorites="removeFromFavorites"
+          recipe=recipe
+          faves=favoritedRecipes
+          favoritesPage=false
+        }}
+      {{/each}}
+    </div>
+
     <div class='pager-container row'>
       {{pagination-pager
         current=currentPage
@@ -38,6 +43,6 @@
       }}
     </div>
 
-  {{/unless}}
+  {{/if}}
 
 {{/if}}
