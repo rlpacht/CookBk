@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151004013901) do
+ActiveRecord::Schema.define(version: 20151011211526) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,9 +29,12 @@ ActiveRecord::Schema.define(version: 20151004013901) do
     t.integer  "user_id"
   end
 
+  add_index "notes", ["recipe_id"], name: "index_notes_on_recipe_id", using: :btree
+  add_index "notes", ["user_id"], name: "index_notes_on_user_id", using: :btree
+
   create_table "recipes", force: :cascade do |t|
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.string   "yummly_id"
     t.string   "name"
     t.integer  "time"
@@ -41,6 +44,7 @@ ActiveRecord::Schema.define(version: 20151004013901) do
     t.string   "ingredients"
     t.string   "large_img_url"
     t.string   "medium_img_url"
+    t.boolean  "is_data_complete",   default: false, null: false
   end
 
   create_table "user_favorites", force: :cascade do |t|
@@ -49,6 +53,9 @@ ActiveRecord::Schema.define(version: 20151004013901) do
     t.integer  "user_id"
     t.integer  "recipe_id"
   end
+
+  add_index "user_favorites", ["recipe_id"], name: "index_user_favorites_on_recipe_id", using: :btree
+  add_index "user_favorites", ["user_id"], name: "index_user_favorites_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at",      null: false
