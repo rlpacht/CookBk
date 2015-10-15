@@ -10,6 +10,23 @@
    {{action "searchRecipes"}}>
     Search!
   </button>
+  <div class="recipe-time-chooser-container">
+    Maximum preparation and cooking time
+    {{ui-slider
+      value=timeSliderValue
+      min=1
+      max=10
+      step=1
+      tooltip='hide'
+      immediateResponse=true
+      changed="maxTimeChanged"
+    }}
+
+    <span class="formatted-recipe-time">
+      {{formattedMaxRecipeTime}}
+    </span>
+
+  </div>
 </div>
 
 {{#if isLoading}}

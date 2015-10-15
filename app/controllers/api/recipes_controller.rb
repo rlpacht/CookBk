@@ -7,26 +7,30 @@ class Api::RecipesController < ApplicationController
   base_uri("http://api.yummly.com/v1/api")
 
   def index
+    # TODO: Clean this up using a default hash
     if params[:query].nil?
       food_searched = ""
       page_count = "1"
+      recipe_time_in_seconds = nil
     else
       food_searched = params[:query][:search]
       page_count = params[:query][:currentPage]
+      recipe_time_in_seconds = params[:query][:maxRecipeTime].to_i * 60
     end
+
     results_per_page = 10
 
-    results = search_yummly(food_searched, page_count, results_per_page)
+    results = search_yummly(food_searched, page_count, results_per_page, recipe_time_in_seconds)
 
-    search_results = []
     total_matches = results["totalMatchCount"]
-    results["matches"].each do |result|
+    # TODO: Do this in a way that doesn't make a db query for each result
+    search_results = results["matches"].map do |result|
       yummly_id = result["id"]
       recipe = Recipe.find_by({yummly_id: yummly_id})
       if recipe.nil?
-        search_results.push(insert_recipe_from_yummly_search(result).json_with_note_ids)
+        insert_recipe_from_yummly_search(result).json_with_note_ids
       else
-        search_results.push(recipe.json_with_note_ids)
+        recipe.json_with_note_ids
       end
     end
 
@@ -73,11 +77,10 @@ class Api::RecipesController < ApplicationController
     Recipe.create(recipe_info)
   end
 
-  def search_yummly(search_query, page_count, results_per_page = 10)
+  def search_yummly(search_query, page_count, results_per_page = 10, recipe_time_in_seconds)
     recipe_start = ((page_count.to_i) - 1) * results_per_page
     id = ENV["yummly_app_id"]
     key = ENV["yummly_app_key"]
-
     query_params = {
       query: {
         _app_id: id,
@@ -88,6 +91,11 @@ class Api::RecipesController < ApplicationController
         start: recipe_start
       }
     }
+
+    # Only add the max time filter if the searched time is under 8 hours
+    if recipe_time_in_seconds < 28800
+      query_params[:query][:maxTotalTimeInSeconds] = recipe_time_in_seconds
+    end
     self.class.get("/recipes", query_params)
   end
 
