@@ -1,15 +1,15 @@
 <div id="recipe-header">
-  <span>
-    Recipe source and directions:
-    <h2 class="name-of-recipe">
+  <h2 class="name-of-recipe">
+    {{recipe.name}}
+  </h2>
+  <h4 class="source">
     <a
       class="recipe-source"
       href={{recipe.sourceUrl}}
       target="_blank">
-      {{recipe.name}}
+      Source and Directions
     </a>
-  </h2>
-  </span>
+  </h4>
 </div>
 
 <div class="container-fluid">
