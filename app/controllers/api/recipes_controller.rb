@@ -24,9 +24,6 @@ class Api::RecipesController < ApplicationController
 
     total_matches = results["totalMatchCount"]
     # TODO: Do this in a way that doesn't make a db query for each result
-    puts "PARAMS #{params}"
-    puts "RESULTS #{results}"
-
     search_results = results["matches"].map do |result|
       yummly_id = result["id"]
       recipe = Recipe.find_by({yummly_id: yummly_id})
