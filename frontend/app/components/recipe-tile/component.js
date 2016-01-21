@@ -17,6 +17,17 @@ const RecipeTileComponent  = Ember.Component.extend({
     return faves.contains(recipe);
   }),
 
+  formattedRecipeName: Ember.computed(function() {
+    var recipeName = this.get("recipe.name");
+    if (recipeName.length > 36) {
+      var formattedName = recipeName.slice(0,37);
+      formattedName += "...";
+      return formattedName;
+    } else {
+      return recipeName;
+    }
+  }),
+
   actions: {
 
     addToFavorites () {

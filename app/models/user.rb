@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
 
   def self.confirm(params)
     user = User.find_by({email: params[:email]})
+    # binding.pry
     user.try(:authenticate, params[:password])
   end
 end
